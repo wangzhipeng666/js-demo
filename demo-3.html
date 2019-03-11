@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .container {
+      width: 520px;
+      height: 280px;
+      position: relative;
+      margin: 20px;
+    }
+
+    .container .img-wrap img {
+      position: absolute;
+      width: 520px;
+      height: 280px;
+    }
+
+    .container .btn {
+      position: absolute;
+      display: flex;
+      width: 100px;
+      background-color: rgba(225, 225, 225, 0.3);
+      bottom: 15px;
+      height: 13px;
+      border-radius: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .container .btn li {
+      list-style: none;
+      margin: 0 auto;
+      font-size: 0;
+      padding-top: 3px;
+    }
+
+    .container .btn li a {
+      display: block;
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      border-radius: 50%;
+    }
+
+    .container .btn li .selected {
+      background: orange;
+    }
+
+    .container .arrow {
+      display: none;
+    }
+
+    .container:hover .arrow {
+      display: block;
+    }
+
+    .container .arrow a {
+      text-decoration: none;
+      font-size: 18px;
+      color: #fff;
+      width: 20px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .container .prev {
+      position: absolute;
+      top: 50%;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+
+    .container .next {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="img-wrap">
+      <img src="images/img-3.jpg" alt="3">
+      <img src="images/img-1.jpg" alt="1">
+      <img src="images/img-2.jpg" alt="2">
+      <img src="images/img-3.jpg" alt="3">
+      <img src="images/img-1.jpg" alt="1">
+    </div>
+    <ul class="btn">
+      <li><a href="#" index='1' class="selected">1</a></li>
+      <li><a href="#" index='2'>2</a></li>
+      <li><a href="#" index='3'>3</a></li>
+    </ul>
+    <div class="arrow">
+      <a href="#" class="prev"><span>&lt;</span></a>
+      <a href="#" class="next"><span>&gt;</span></a>
+    </div>
+  </div>
+  <script>
+    window.onload = function () {
+      var lis = document.querySelectorAll('.img-wrap img');
+      var prev = document.querySelector('.prev');
+      var next = document.querySelector('.next');
+      var btns = document.querySelectorAll('.btn li a');
+      var index = 1;
+
+      setInterval(() => {
+        lis.forEach(li => {
+          li.style.opacity = 0;
+        });
+
+        lis[index].style.opacity = 1;
+
+        index++;
+
+        if (index === lis.length) {
+          index = 1;
+        }
+      }, 3000);
+
+      next.addEventListener('click', function () {
+        if (index === 3) {
+          index = 1;
+        } else {
+          index += 1;
+        }
+        changeImg(index);
+        changeBtn();
+      });
+
+      prev.addEventListener('click', function () {
+        if (index === 1) {
+          index = 3;
+        } else {
+          index -= 1;
+        }
+        changeImg(index);
+        changeBtn();
+      });
+
+      function changeImg(myIndex) {
+        lis.forEach(li => {
+          li.style.opacity = 0;
+        })
+
+        lis[myIndex].style.opacity = 1;
+      }
+
+      for (var i = 0; i < btns.length; i++) {
+          btns[i].onclick = function () {
+              var myIndex = parseInt(this.getAttribute('index'));
+              changeImg(myIndex);
+              index = myIndex;
+              changeBtn();
+          }
+      }
+
+      function changeBtn() {
+          btns.forEach(li => li.classList.remove('selected'));
+          btns[index - 1].classList.add('selected');
+      }
+    }
+  </script>
+</body>
+
+</html>
