@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Tab选项卡</title>
+  <style type="text/css">
+    ul,
+    li {
+      list-style-type: none;
+    }
+
+    .container li {
+      display: inline-block;
+      padding: 5px;
+      border: 1px solid #666;
+      border-radius: 4px;
+    }
+
+    .container li.select {
+      background-color: #666;
+      color: #fff;
+    }
+
+    .content li {
+      display: none;
+    }
+
+    .content li.active {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <ul class="container">
+    <li class="select">首页</li>
+    <li>日记</li>
+    <li>博文</li>
+    <li>更多</li>
+  </ul>
+
+  <ul class="content">
+    <li class="active">这是首页</li>
+    <li>这是日记</li>
+    <li>这是博文</li>
+    <li>......</li>
+  </ul>
+
+  <script type="text/javascript">
+    var timer = null;
+
+    const lis = document.querySelectorAll(".container li");
+    const cons = document.querySelectorAll(".content li");
+
+    for (let i = 0; i < lis.length; i++) {
+      lis[i].index = i;
+      lis[i].addEventListener('mouseover', function () {
+        var that = this;
+        if (timer) {
+          clearTimeout(timer);
+          timer = null;
+        }
+        timer = setTimeout(function () {
+          lis.forEach(li => { li.classList.remove("select"); });
+          cons.forEach(con => { con.classList.remove("active"); });
+          lis[that.index].classList.add('select');
+          cons[that.index].classList.add('active');
+        }, 1000)
+
+      })
+    }
+
+
+  </script>
+</body>
+
+</html>
