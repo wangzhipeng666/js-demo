@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+      background: #fff;
+      border: 1px solid #000;
+    }
+    .mask {
+      width: 350px;
+      height: 200px;
+      border: 20px solid #ccc;
+      position: absolute;
+      left: 50%;
+      right: 50%;
+      transform: translate(-50%,50%);
+      display: none;
+    }
+    .setList {
+      list-style: none;
+    }
+    .setList li {
+      margin-bottom: 10px;
+    }
+    .set-btn {
+      display: inline-block;
+      width: 40px;
+      height: 30px;
+      line-height: 30px;
+      border: 1px solid #000;
+      text-align: center;
+    }
+    .red {
+      background: red;
+    }
+    .yellow {
+      background: yellow;
+    }
+    .blue {
+      background: blue;
+    }
+    .btn-group {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h2>请为下面的div设置样式：<button class="btn">点击设置</button></h2>
+    <div class="box"></div>
+  </div>
+  <div class="mask">
+    <div class="select">
+      <ul class="setList">
+        <li>
+          <span class="title">请选择背景色：</span>
+          <span class="set-btn red">红</span>
+          <span class="set-btn yellow">黄</span>
+          <span class="set-btn blue">蓝</span>
+        </li>
+        <li>
+          <span class="width">请选择宽(px)：&nbsp;</span>
+          <span class="set-btn" class="w200">200</span>
+          <span class="set-btn" class="w300">300</span>
+          <span class="set-btn" class="w400">400</span>
+        </li>
+        <li>
+          <span class="height">请选择高(px)：&nbsp;</span>
+          <span class="set-btn" class="h200">200</span>
+          <span class="set-btn" class="h300">300</span>
+          <span class="set-btn" class="h400">400</span>
+        </li>
+      </ul>
+    </div>
+    <div class="btn-group">
+      <button class="reset">重置</button>
+      <button class="confirm">确定</button>
+    </div>
+  </div>
+
+  <script>
+    var btn = document.querySelector('.btn');
+    var mask = document.querySelector('.mask');
+    var confirm = document.querySelector('.confirm');
+    var red = document.querySelector('.red');
+    var yellow = document.querySelector('.yellow');
+    var blue = document.querySelector('.blue');
+    var box = document.querySelector('.box');
+    var reset = document.querySelector('.reset');
+
+    btn.onclick = function() {
+      mask.style.display = 'block';
+    }
+    confirm.onclick = function() {
+      mask.style.display = 'none';
+    }
+    red.onclick = function() {
+      box.style.backgroundColor = 'red';
+    }
+    yellow.onclick = function() {
+      box.style.backgroundColor = 'yellow';
+    }
+    blue.onclick = function() {
+      box.style.backgroundColor = 'blue';
+    }
+    reset.onclick = function() {
+      box.style.backgroundColor = '#fff';
+      box.style.width = 100;
+      box.style.height = 100;
+    }
+  </script>
+</body>
+</html>
