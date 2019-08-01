@@ -172,8 +172,10 @@
       alert('内容为空，不允许发送！');
     } else if(onOff) {
       list.innerHTML += '<li class="right"><img src="images/monster2.png" alt=""><p>'+ val + '</p></li>';
+      text.value = "";
     } else {
-      list.innerHTML += '<li class="left"><img src="images/monster1.png" alt=""><p>'+ val + '</p></li>'
+      list.innerHTML += '<li class="left"><img src="images/monster1.png" alt=""><p>'+ val + '</p></li>';
+      text.value = "";
     }
   }
 </script>
