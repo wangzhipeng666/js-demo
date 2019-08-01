@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    *{
+            margin: 0;
+            padding: 0;
+        }
+        a{
+            text-decoration: none;
+        }
+        .wrap{
+            width: 1000px;
+            height: 800px;
+            background: url(images/bg.jpg) no-repeat;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -500px;
+            margin-top: -400px;
+        }
+        #prev,#next{
+            position: absolute;
+            width: 25px;
+            height: 45px;
+            background: url(images/ar.png) no-repeat;
+            top: 155px;
+        }
+        #prev{
+            left: 13px;
+        }
+        #next{
+            transform: rotate(180deg);
+            right: 13px;
+        }
+        .pic{
+            width: 536px;
+            height: 356px;
+            position: absolute;
+            top: 170px;
+            left: 297px;
+        }
+        #txt{
+            width: 536px;
+            height: 71px;
+            position: absolute;
+            left: 297px;
+            bottom: 185px;
+            text-align: center;
+            font: 20px/71px "微软雅黑";
+            color: #666;
+        }
+        #box{
+          position: absolute;
+          bottom: 25px;
+          left: 250px;
+        }
+        .active {
+          background: red;
+        }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="pic">
+      <a href="javascript:;" id="prev"></a>
+      <img src="images/img1.jpg" alt="" id="img">
+      <a href="javascript:;" id="next"></a>
+      <div id="box">
+        <button class="active">1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>4</button>
+        <button>5</button>
+      </div>
+    </div>
+    <p id="txt">这是第<span class="number">1</span>张照片</p>
+  </div>
+  <script>
+    var prev = document.getElementById('prev');
+    var next = document.getElementById('next');
+    var text = document.querySelector('.number');
+    var data = ['images/img1.jpg','images/img2.jpg','images/img3.jpg','images/img4.jpg','images/img5.jpg'];
+    var box = document.getElementById('box');
+    var btns = box.querySelectorAll('button');
+    var num = 0;
+
+    next.onclick = function() {
+      num++;
+      if(num >= data.length) {
+        num = 0;
+      }
+      img.src = data[num];
+      text.innerHTML = num+1;
+      btns.forEach((item) => item.className = "");
+      btns[num].className = 'active';
+    }
+    prev.onclick = function() {
+      num--;
+      if(num < 0) {
+        num = data.length -1;
+      }
+      img.src = 'images/img' + (num+1) + '.jpg';
+      text.innerHTML = num + 1;
+      btns.forEach((item) => item.className = "");
+      btns[num].className = 'active';
+    }
+  </script>
+</body>
+</html>
