@@ -59,8 +59,19 @@
           bottom: 25px;
           left: 250px;
         }
-        .active {
-          background: red;
+        #box button {
+          position: relative;
+        }
+        #box .img {
+          position: absolute;
+          display: none;
+          left: -17px;
+          top: -35px;
+          width: 40px;
+          border: 2px solid #fff;
+        }
+        #box .active {
+          background: #f60 ;
         }
   </style>
 </head>
@@ -71,11 +82,11 @@
       <img src="images/img1.jpg" alt="" id="img">
       <a href="javascript:;" id="next"></a>
       <div id="box">
-        <button class="active">1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>4</button>
-        <button>5</button>
+        <button class="active">1<img class="img" src="images/img1.jpg"></button>
+        <button>2<img class="img" src="images/img2.jpg"></button>
+        <button>3<img class="img" src="images/img3.jpg"></button>
+        <button>4<img class="img" src="images/img4.jpg"></button>
+        <button>5<img class="img" src="images/img5.jpg"></button>
       </div>
     </div>
     <p id="txt">这是第<span class="number">1</span>张照片</p>
@@ -91,9 +102,7 @@
 
     next.onclick = function() {
       num++;
-      if(num >= data.length) {
-        num = 0;
-      }
+      num = num > data.length - 1?0:num;
       img.src = data[num];
       text.innerHTML = num+1;
       btns.forEach((item) => item.className = "");
@@ -101,13 +110,22 @@
     }
     prev.onclick = function() {
       num--;
-      if(num < 0) {
-        num = data.length -1;
-      }
+      num = num < 0?data.length-1:num;
       img.src = 'images/img' + (num+1) + '.jpg';
       text.innerHTML = num + 1;
       btns.forEach((item) => item.className = "");
       btns[num].className = 'active';
+    }
+    
+    for(var i = 0;i < btns.length;i++) {
+      btns[i].onmouseover = function() {
+        var sImg = this.querySelector('img');
+        sImg.style.display = 'block';
+      }
+      btns[i].onmouseout = function() {
+        var sImg = this.querySelector('img');
+        sImg.style.display = 'none';
+      }
     }
   </script>
 </body>
