@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .option a {
+      width: 70px;
+      height: 40px;
+      line-height: 40px;
+      border: 1px solid #000;
+      display: inline-block;
+      text-decoration: none;
+      color: #000;
+      text-align: center;
+    }
+    .checked {
+      background: #f60;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>模拟复选</h1>
+    <div class="option">
+      <a href="javascript:;">美食</a>
+      <a href="javascript:;">逛街</a>
+      <a href="javascript:;">旅游</a>
+    </div>
+  </div>
+  <script>
+    var opts = document.querySelectorAll('.option a');
+    for(var i = 0;i < opts.length;i++) {
+      opts[i].onclick = function() {
+        this.classList.toggle(' checked');
+      }
+    }
+  </script>
+</body>
+</html>
