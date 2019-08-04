@@ -122,6 +122,7 @@
         img.src = data[i];
         btns.forEach(item => item.className = "");
         btns[i].className = 'active';
+        num = i;
       }
       btns[i].onmouseover = function() {
         var sImg = this.querySelector('img');
