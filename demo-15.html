@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      background-color: rgb(100, 140, 100);
+    }
+    #wrap {
+      width: 590px;
+      margin: 100px auto;
+      position: relative;
+    }
+    #wrap div {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      background: url(images/back.jpg);
+      background-size: 1000% 1000%;
+    }
+  </style>
+</head>
+<body>
+  <div id="wrap">
+
+  </div>
+  <script>
+    var wrap = document.getElementById('wrap');
+    var inner = '';
+    var w = 50;
+    var h = 50;
+    // 双层for循环
+    // for(var j = 0;j < 10;j++) {
+    //   for(var i = 0;i < 10;i++) {
+    //     inner +='<div style="left: '+ (i*w) +'px;top:'+ (j*h) + 'px;background-position: -' + (i*w) + 'px -' + (j*h) + 'px"></div>';
+    //   }
+    // } 
+
+    // 单层for循环 
+    for(var i = 0;i < 100;i++) {
+      var x = i%10;
+      var y = parseInt(i/10);
+      inner +='<div style="left: '+ (x*w) +'px;top:'+ (y*h) + 'px;background-position: -' + (x*w) + 'px -' + (y*h) + 'px">'+i+'</div>';
+    }
+    wrap.innerHTML = inner;
+  </script>
+</body>
+</html>
