@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div class="box">
+    <input type="text" class="text" />
+    <button>验证</button>
+  </div>
+  <script>
+    var txt = document.querySelector(".text");
+    var btn = document.querySelector("button");
+    btn.onclick = function() {
+      var val = txt.value;
+      if(val == "") {
+        alert("不能为空");
+      } else if(val.length > 10 || val.length < 5) {
+        alert("请输入5到10位");
+      } else if(isNaN(val) || String(parseInt(val)) !== val) {
+        alert("请输入一个合法的整数");
+      } else if (val[0] == '0') {
+        alert('不能以0开始');
+      } else {
+        alert('验证通过');
+      }
+    }
+  </script>
+</body>
+</html>
