@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .tab {
+      list-style: none;
+      display: inline-block;
+      width: 60px;
+      height: 30px;
+    }
+    .active {
+      background: blue;
+    }
+    .con {
+      display: none;
+    }
+    .show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <ul id="list">
+    <li>
+      <p><span class="inner">这是一个列表</span><a href="javascript:;" class="btn">修改</a></p>
+      <div class="edit">
+        <input type="text" class="text">
+        <button class="edit-btn">确定</button>
+      </div>
+    </li>
+    <li>
+      <p><span class="inner">这是一个列表</span><a href="javascript:;" class="btn">修改</a></p>
+      <div class="edit">
+        <input type="text" class="text">
+        <button class="edit-btn">确定</button>
+      </div>
+    </li>
+    <li>
+      <p><span class="inner">这是一个列表</span><a href="javascript:;" class="btn">修改</a></p>
+      <div class="edit">
+        <input type="text" class="text">
+        <button class="edit-btn">确定</button>
+      </div>
+    </li>
+  </ul>
+  <script>
+    var lis = document.querySelectorAll("#list li");
+    for(var i = 0;i < lis.length;i++) {
+      fn(lis[i]);
+    }
+    function fn(li) {
+      var btn = li.querySelector(".btn");
+      var p = li.querySelector("p");
+      var inner = li.querySelector(".inner");
+      var edit = li.querySelector(".edit");
+      var txt = edit.querySelector(".text");
+      var editBtn = edit.querySelector(".edit-btn");
+      btn.onclick = function() {
+        p.style.display = "none";
+        edit.style.display = "block";
+        txt.value = inner.innerHTML;
+      }
+      editBtn.onclick = function() {
+        if(!txt.value) {
+          alert("请输入内容");
+        } else {
+          inner.innerHTML = txt.value;
+          p.style.display = "block";
+          edit.style.display = "none";
+        }
+      }
+    }
+  </script>
+</body>
+</html>
