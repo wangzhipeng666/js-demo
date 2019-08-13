@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .wrap {
+      width: 100px;
+      height: 100px;
+      background: red;
+    }
+  </style>
+</head>
+<body>
+  <button>点击切换颜色</button>
+  <button>停止</button>
+  <div class="wrap">
+      
+  </div>
+  <script>
+    var btn1 = document.querySelectorAll("button")[0];
+    var btn2 = document.querySelectorAll("button")[1];
+    var wrap = document.querySelector(".wrap");
+    var colors = ["blue","yellow","green","pink"];
+    var now = 0;
+    var timer = 0;
+    btn1.onclick = function() {
+        // clearInterval(timer);
+        if(timer) {
+          return;
+        }
+        timer = setInterval(function() {
+        now++;
+        wrap.style.background = colors[now%colors.length];
+      },1000);
+    }
+    btn2.onclick = function() {
+      clearInterval(timer);
+    }
+  </script>
+</body>
+</html>
