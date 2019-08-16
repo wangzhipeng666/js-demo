@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .navs {
+      list-style: none;
+    }
+    .navs li {
+      display: inline-block;
+      width: 80px; 
+    }
+    .active {
+      background: red;
+    }
+    .wrap div {
+      display: none;
+    }
+    /* .wrap div:first-child {
+      display: block;
+    } */
+  </style>
+</head>
+<body>
+     <div class="wrap">
+       <ul class="navs">
+         <li class="active">暖色调</li>
+         <li>金色夕阳</li>
+         <li>灰色格调</li>
+         <li>其他</li>
+       </ul>
+       <div style="display: block">
+         aaa
+       </div>
+       <div>
+          bbb
+       </div>
+       <div>
+          ccc
+       </div>
+       <div>
+          ddd
+       </div>
+     </div>
+
+    <script>
+      var wrap = document.querySelector(".wrap");
+      var navs = document.querySelectorAll(".navs li");
+      var inners = document.querySelectorAll(".wrap div");
+      var now = 0;
+      var timer = 0;
+      for(var i = 0;i < navs.length;i++) {
+        navs[i].index = i;
+        navs[i].onmouseover = function() {
+          now = this.index;
+          tab();
+        }
+      }
+
+      function tab() {
+        for(var i = 0;i < navs.length;i++) {
+            navs[i].classList.remove("active");
+            inners[i].style.display = "none";
+          }
+          navs[now].classList.add("active");
+          inners[now].style.display = "block";
+      }
+
+      function toNext() {
+        now++;
+        now = now%navs.length;
+        tab();
+      }
+
+      timer = setInterval(toNext,1000);
+      wrap.onmouseover = function() {
+        clearInterval(timer);
+      }
+      wrap.onmouseover = function() {
+        clearInterval(timer);
+        timer = setInterval(toNext,1000);
+      }
+    </script>
+</body>
+</html>
