@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" class="input">
+  <button class="btn">这是一个按钮</button>
+  <ul>
+
+  </ul>
+  <script>
+    var input = document.querySelector(".input");
+    var btn = document.querySelector(".btn");
+    var list = document.querySelector("ul");
+    list.innerHTML = "";
+    var myHistory = [];
+    
+    btn.onclick = function() {
+      if(input.value !=='') {
+        myHistory.unshift(input.value);
+        list.innerHTML = '';
+        for(var i=0;i < myHistory.length;i++) {
+        var itemText = myHistory[i];
+        var itemList = document.createElement("li");
+        itemList.textContent = itemText;
+        list.appendChild(itemList);
+        }
+        if(myHistory.length >=5) {
+          myHistory.pop();
+        }
+      }
+      input.value = "";
+      input.focus();
+    }
+  </script>
+</body>
+</html>
