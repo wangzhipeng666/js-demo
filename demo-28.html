@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .wrap {
+      display: flex;
+    }
+    button {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+    p {
+      width: 100px;
+      height: 100px;
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <button>prev</button>
+    <p>A</p>
+    <p>B</p>
+    <p>C</p>
+    <p>D</p>
+    <button>next</button>
+  </div>
+  <script>
+    var btns = document.querySelectorAll("button");
+    var para = document.querySelectorAll("p");
+    var arr = [];
+    for(var i =0;i < para.length;i++) {
+      arr.push(para[i].innerHTML);
+    }
+    btns[0].onclick = function() {
+      arr.unshift(arr.pop());
+      for(var i =0;i < arr.length;i++) {
+        para[i].innerHTML = arr[i];
+      }
+    }
+    btns[1].onclick = function() {
+      arr.push(arr.shift());
+      for(var i =0;i < arr.length;i++) {
+        para[i].innerHTML = arr[i];
+      }
+    }
+  </script>
+</body>
+</html>
