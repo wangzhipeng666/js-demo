@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .list li {
+      display: flex;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <ul class="list">
+      <li>
+        <div class="list-left">
+            <button class="minus">-</button>
+            <span class="number">0</span>
+            <button class="plus">+</button>
+        </div>
+        <div class="list-right">
+            <span>单价：</span>
+            <em class="price">12.5元</em>
+            <span>小计：</span>  
+            <em class="count">0元</em>
+        </div>   
+      </li>
+      <li>
+        <div class="list-left">
+            <button class="minus">-</button>
+            <span class="number">0</span>
+            <button class="plus">+</button>
+        </div>
+        <div class="list-right">
+            <span>单价：</span>
+            <em class="price">14.5元</em>
+            <span>小计：</span>  
+            <em class="count">0元</em>
+        </div>   
+      </li>
+      <li>
+          <div class="list-left">
+              <button class="minus">-</button>
+              <span class="number">0</span>
+              <button class="plus">+</button>
+          </div>
+          <div class="list-right">
+              <span>单价：</span>
+              <em class="price">15.5元</em>
+              <span>小计：</span>  
+              <em class="count">0元</em>
+          </div>   
+      </li>
+      <li>
+        <div class="list-left">
+            <button class="minus">-</button>
+            <span class="number">0</span>
+            <button class="plus">+</button>
+        </div>
+        <div class="list-right">
+            <span>单价：</span>
+            <em class="price">13.5元</em>
+            <span>小计：</span>  
+            <em class="count">0元</em>
+        </div>   
+      </li>
+      <p>商品合计共：<span class="total-count">0</span>件，共花费了<span class="total-price">0</span>元</p>
+      <p>最贵单价为：<span class="expensive">0</span></p>
+    </ul>
+  </div>
+  <script>
+    var list = document.querySelectorAll(".list li");
+    list.forEach(function(item) {
+      var minus = item.querySelector(".minus");
+      var plus = item.querySelector(".plus");
+      var number = item.querySelector(".number");
+      var price = parseFloat(item.querySelector(".price").innerHTML);
+      var count = item.querySelector(".count");
+      var nub = Number(number.innerHTML);
+      minus.onclick = function() {
+        if(nub < 0) {
+          return;
+        }
+        nub--;
+        reduce();
+      };
+      plus.onclick = function() {
+        nub ++;
+        reduce();
+        total();
+      };
+      function reduce() {
+        number.innerHTML = nub;
+        count.innerHTML = nub*price + '元';
+        total();
+      }
+    });
+    function total() {
+      var count = [0];
+      var prices = [0];
+      var totalPrices = [0];
+      // reduce在计算时如果遇到空数组会遇到错误
+      var totalCount = document.querySelector(".total-count");
+      var totalPrice = document.querySelector(".total-price");
+      var expensive = document.querySelector(".expensive");
+      list.forEach(function(item) {
+        var number = item.querySelector(".number");
+        var nub = Number(number.innerHTML);
+        if(nub > 0) {
+          var price = parseFloat(item.querySelector(".price").innerHTML);
+          count.push(nub);
+          prices.push(price);
+          totalPrices.push(nub*price);
+        }
+      })
+      totalCount.innerHTML = count.reduce(function(n1,n2) {
+        return n1+n2;
+      })
+      totalPrice.innerHTML = totalPrices.reduce(function(n1,n2) {
+        return n1+n2;
+      })
+      expensive.innerHTML = prices.reduce(function(n1,n2) {
+        return Math.max(n1,n2);
+      })
+    }
+    
+  </script>
+</body>
+</html>
