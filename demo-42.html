@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>倒计时时钟</title>
+  <style>
+    body, div{padding: 0;margin: 0;}
+    body{color:#fff;font:16px/1.5 \5fae\8f6f\96c5\9ed1;}
+    #countdown{width:300px;text-align:center;background:#1a1a1a;margin:10px auto;padding:20px 0;}
+    input{border:0;width:283px;height:50px;cursor:pointer;margin-top:20px;background-color:green;border-radius: 15px;outline: none;}
+    input.cancel{background-color: red}
+    span{color:#000;width:80px;line-height:2;background:#fbfbfb;border:2px solid #b4b4b4;margin:0 10px;padding:0 10px;}
+  </style>
+</head>
+<body>
+    <div id="countdown">
+      <span>01</span>分钟<span>40</span>秒
+      <input type="button" value="启动" />
+    </div>
+    <script>
+      var oSpan = document.querySelectorAll("span");
+      var oInput = document.querySelector("input");
+      var timer = null;
+
+      oInput.onclick = function() {
+        this.value = this.value == '启动' ? '停止' : '启动';
+        this.className == "" ? (timer = setInterval(updateTime, 1000), updateTime()) : (clearInterval(timer));
+		    this.className = this.className == '' ? "cancel" : '';
+      }
+      
+      function format(v) {
+        return v.toString().replace(/^(\d)$/,'0$1')
+      }
+      function updateTime() {
+        var oSpan = document.querySelectorAll("span");
+        var oResult = oSpan[0].innerHTML.replace(/^0/,'') * 60 + parseInt(oSpan[1].innerHTML.replace(/^0/,''));
+        if(oResult <= 0) {
+          clearInterval(timer);
+          return;
+        }
+        oResult--;
+        oSpan[0].innerHTML = format(parseInt(oResult / 60));
+        console.log(oSpan[0].innerHTML);
+        oResult %= 60;
+        oSpan[1].innerHTML = format(parseInt(oResult));
+      }
+    </script>
+</body>
+</html>
