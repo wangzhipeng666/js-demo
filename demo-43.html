@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JS阻止冒泡和取消默认事件(默认行为)</title>
+</head>
+<body>
+  <script>
+
+    // 阻止冒泡
+    function stopBubble(e) {
+      //如果提供了事件对象，则这是一个非IE浏览器 
+      if(e && e.stopPropagation) {
+        //因此它支持W3C的stopPropagation()方法 
+        e.stopPropagation();
+      } else {
+        //否则，我们需要使用IE的方式来取消事件冒泡
+        window.event.cancelBubble = true;
+      }
+    }  
+
+    //阻止浏览器的默认行为 
+    function stopDefault(e) {
+      //阻止默认浏览器动作(W3C)
+      if(e && e.preventDefault) {
+        e.preventDefault();
+      } else {
+        //IE中阻止函数器默认动作的方式 
+        window.event.returnValue = false;
+        return false;
+      }
+    }
+
+    // 事件对象
+    // 在IE中是window.event，在Firefox中是event。而目标对象，在IE中是window.event.srcElement，在Firefox中是event.target
+    function fn(e){
+      // 下面两句效果相同
+      var e = (e) ? e : ((window.event) ? window.event : null); 
+      var e = e || window.event; // firefox下window.event为null, IE下event为null
+    }
+
+  </script>
+</body>
+</html>
