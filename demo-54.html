@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片懒加载</title>
+    <style>
+        img {
+            display: block;
+            width: 800px;
+            height: 800px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <img data-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1lCcuz705rwcuwowrD6naHWZ3gVWJbDp--g&usqp=CAU" alt="">
+    <img data-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-xFulkfbTwoQrYR8QcYal2UILdfr5C--enA&usqp=CAU" alt="">
+    <img data-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhAxkEomf1wlIrGmgwYzqe56CnFw987vbL3g&usqp=CAU" alt="">
+    <img data-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmTDopJ0aRHglf8TfCNY0Pridl2L3c6vCkNA&usqp=CAU" alt="">
+    <img data-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXLMUB3VHZIh8GnuAI4Fl22I8NaI0Yy_0fvw&usqp=CAU" alt="">
+</body>
+
+<script>
+let imgs = document.querySelectorAll('img');
+
+// 方案一
+// // offsetTop是元素与offsetParent的距离，循环获取直到页面顶部
+// function getTop(e) {
+//     let OT = e.offsetTop;
+//     while (e = e.offsetParent) {
+//         OT += e.offsetTop
+//     }
+//     return OT
+// }
+// function lazyLoad() {
+//     const CH = document.documentElement.clientHeight; //获取可视区域高度
+//     const SH = document.documentElement.scrollTop;
+
+//     for (let i = 0;i < imgs.length;i++) {
+//         // 元素的offsetTop(距离页面顶部的距离) - 页面滚动的距离 < 可视区域高度
+//         if (getTop(imgs[i]) - SH < CH) {
+//             imgs[i].src = imgs[i].dataset.src;
+//         }
+//     }
+// }
+
+// 方案二 getBoundingClientRect
+// function lazyLoad() {
+//     const CH = document.documentElement.clientHeight;
+//     Array.from(imgs).forEach((el) => {
+//         let B = el.getBoundingClientRect();
+//         if (B.top <= CH) {
+//             if (!el.src) {
+//                 el.src = el.dataset.src;
+//             }
+//         }
+//     })
+// }
+
+// window.onload = window.onscroll = () => lazyLoad();
+
+// 方案三 IntersectionObserver
+function lazyLoad() {
+    const callback = (entries) => {
+        console.log(entries);
+        entries.forEach(item => {
+            // 元素出现到可视区
+            if (item.intersectionRatio > 0) {
+                const ele = item.target;
+                const imgSrc = ele.getAttribute('data-src');
+                if (imgSrc) {
+                    // 预加载
+                    var img = new Image();
+                    img.addEventListener('load', function() {
+                        ele.src = imgSrc;
+                    }, false);
+                    ele.src = imgSrc;
+                    // 加载过清空路径，避免重复加载
+                    ele.removeAttribute('data-src');
+                }
+            }
+        })
+    };
+    const observer = new IntersectionObserver(callback);
+    // 元素加入监听
+    imgs.forEach(item => {
+        observer.observe(item);
+    });
+}
+
+window.onload = () => lazyLoad();
+
+// 节流函数：在规定的单位时间段内，函数只能执行一次，在单位时间内多少触发，则只有一次有效
+// 节流函数 - 定时器版
+// function throttle(fn, delay) {
+//     let timer = null;
+//     return function(...args) {
+//         if (!timer) {
+//             fn.apply(this, args);
+//             timer = setTimeout(() => {
+//                 clearTimeout(timer);
+//                 timer = null;
+//             }, delay)
+//         }
+//     }
+// }
+// 节流函数 - 时间戳版
+// function throttle(fn, delay) {
+//     // 上次执行fn的时间
+//     let previous = 0;
+//     return function(...args) {
+//         // 当前日期，转换为时间戳
+//         let now = +new Date();
+//         if (now - previous > delay) {
+//             previous = now;
+//             fn.apply(this, args);
+//         }
+//     }
+// }
+
+// const throttleFn = throttle(lazyLoad, 1000);
+</script>
+</html>
