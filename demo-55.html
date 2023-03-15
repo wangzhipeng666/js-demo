@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>防抖和节流函数</title>
+</head>
+<body>
+    <script>
+
+        // 节流函数：在规定的单位时间段内，函数只能执行一次，在单位时间内多少触发，则只有一次有效
+        // 节流函数 - 定时器版
+        function throttle(fn, delay) {
+            let timer = null;
+            return function(...args) {
+                if (!timer) {
+                    fn.apply(this, args);
+                    timer = setTimeout(() => {
+                        clearTimeout(timer);
+                        timer = null;
+                    }, delay)
+                }
+            }
+        }
+        // 节流函数 - 时间戳版
+        function throttle(fn, delay) {
+            // 上次执行fn的时间
+            let previous = 0;
+            return function(...args) {
+                // 当前日期，转换为时间戳
+                let now = +new Date();
+                if (now - previous > delay) {
+                    previous = now;
+                    fn.apply(this, args);
+                }
+            }
+        }
+
+        // 防抖函数：事件被触发，在n秒后执行函数，在n秒内多次触发事件，则重新开始计时
+        function debounce(fn, delay) {
+            let timer = null;
+            return function(...args) {
+                // 如果已经设定过定时器就清空上一次的定时器
+                if (timer) clearTimeout(timer)
+                // 开始设定一个新的定时器，定时器结束后执行传入的函数 fn
+                timer = setTimeout(() => {
+                    fn.apply(this, args);
+                }, delay);
+            }
+        }
+
+        // 防抖函数 - 第一次触发立即执行
+        function debounce(fn, delay, immediate) {
+            let timer = null;
+            return function(...args) {
+                if (timer) clearTimeout(timer)
+
+                // immediate 为 true 表示第一次触发后执行
+      	        // timer 为空表示首次触发
+                if (immediate && !timer) {
+                    fn.apply(this, args);
+                }
+
+                timer = setTimeout(() => {
+                    fn.apply(this, args);
+                }, delay);
+            }
+        }
+
+        // 加强版 throttle
+        // 如果用户的操作非常频繁，不等设置的延迟时间结束就进行下次操作，会频繁的清除计时器并重新生成，所以函数 fn 一直都没办法执行，导致用户操作迟迟得不到响应。
+        function debounce(fn, delay = 100) {
+            let previous = 0, timer = null;
+            return function(...args) {
+                // 获取当前时间，转换成时间戳，单位毫秒
+                let now = +new Date();
+
+                if (now - previous < wait) {
+                    if (timer) clearTimeout(timer);
+
+                    timer = setTimeout(() => {
+                        previous = now;
+                        fn.apply(this, args);
+                    }, delay);
+                } else {
+                    // 第一次执行
+                    // 或者时间间隔超出了设定的时间间隔，执行函数 fn
+                    previous = now;
+                    fn.apply(this, args);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
