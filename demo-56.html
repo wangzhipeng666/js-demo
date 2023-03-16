@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS复制文本内容</title>
+    <style>
+        .wrapper {position: relative;}
+	    #input {position: absolute;top: 0;left: 0;opacity: 0;z-index: -10;}
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <p id="text">我是需要复制的文本内容</p>
+        <textarea id="input">这是幕后黑手</textarea>
+        <button onclick="copyText()">copy</button>
+    </div>
+
+    <script>
+        // 方案一：利用select()方法来选中输入框中的内容，但是select()方法只对<input>和<textarea>有效
+        // function copyText() {
+        //     const p = document.getElementById('text');
+        //     const input = document.getElementById('input');
+
+        //     input.value = p.innerHTML;
+        //     input.select();
+        //     document.execCommand('copy');
+        // }
+
+        // 方案二：利用window.getSelection()获取Seletion对象 https://developer.mozilla.org/zh-CN/docs/Web/API/Window/getSelection
+        // Selection.selectAllChildren()（实验中的功能）把指定元素的所有子元素设为选中区域，并取消之前的选中区域。https://developer.mozilla.org/zh-CN/docs/Web/API/Selection/selectAllChildren
+        function copyText() {
+            const p = document.getElementById('text');
+            window.getSelection().selectAllChildren(p);
+            document.execCommand('copy');
+        }
+    </script>
+</body>
+</html>
